@@ -12,6 +12,7 @@ public class CharacterMoveController : MonoBehaviour {
     private bool attacking = false;
     private float attackTimer = 0;
     private float attackTime = 0.1f;
+	private float moveSpeed = 0;
     [HideInInspector]
     public StatManager m_stats;
     private Transform m_atkTrigger;
@@ -26,6 +27,16 @@ public class CharacterMoveController : MonoBehaviour {
     public string m_enemyTag="Enemy";
 
 
+	public bool isGrounded()
+	{
+		return grounded;
+	}
+	
+	public float getSpeed()
+	{
+		return moveSpeed;
+	}
+	
 	void Start () {
         m_stats = GetComponent<StatManager>();
         m_atkTrigger = transform.FindChild("AttackTrigger");
@@ -66,7 +77,7 @@ public class CharacterMoveController : MonoBehaviour {
 
     public void Move(float axis,bool jump)
     {
-        float moveSpeed = axis * maxSpeed;
+        moveSpeed = axis * maxSpeed;
         m_anim.SetFloat("Speed",Mathf.Abs(moveSpeed));
         m_rb.velocity = new Vector2(moveSpeed, m_rb.velocity.y);
 
